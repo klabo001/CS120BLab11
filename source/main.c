@@ -92,20 +92,20 @@ typedef struct _task {
 
 //----------Find GCD function-------------------------------------------
 
-unsigned long int findGCD(unsigned long int a, unsigned long int b)
-{
-	unsigned long int c;
-	while(1)
-	{
-		c = a%b;
-		if (c==0) return b;
-		a = b;
-		b = c;
-		
-	}
-	return 0;
-	
-}
+// unsigned long int findGCD(unsigned long int a, unsigned long int b)
+// {
+// 	unsigned long int c;
+// 	while(1)
+// 	{
+// 		c = a%b;
+// 		if (c==0) return b;
+// 		a = b;
+// 		b = c;
+// 		
+// 	}
+// 	return 0;
+// 	
+// }
 /*
 unsigned long GCD = tasks[0]->period;
 for (i = 1; i < numTasks; i++)
@@ -222,13 +222,13 @@ int main(){
 	static task task1, task2, task3, task4;
 	task *tasks[] = {&task1, &task2, &task3, &task4};
 	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
-	int iter = 0;
-	unsigned long GCD = tasks[0]->period;
-	for (iter = 1; iter < numTasks; iter++)
-	{
-		GCD = findGCD(GCD, tasks[iter]->period);
-	}
-	
+//	int iter = 0;
+	unsigned long GCD = 10;
+// 	for (iter = 1; iter < numTasks; iter++)
+// 	{
+// 		GCD = findGCD(GCD, tasks[iter]->period);
+// 	}
+// 	
 	// Task 1 (pauseButtonToggleSM)
 	task1.state = pauseButton_wait; //Task initial state.
 	task1.period = 50; //Task Period
@@ -275,17 +275,3 @@ int main(){
 	}
 	return 0; //Error: Program should not exit
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
