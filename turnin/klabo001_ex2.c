@@ -177,18 +177,19 @@ typedef struct _task {
 //------------- Display SM ---------------------------------------------
 
 enum display_states {display_display1, display_display2};
-
+int position;
 
 
 int displayNumTick(int state)
 {
 	//Local Variables
-	
+	unsigned char s[] = {' ',' ', ' ', ' ',' ', ' ', ' ',' ', ' ', ' ',' ', ' ', ' ',' ', ' ', ' ', 'C', 'S', '1', '2', '0', 'B', ' ', 'i', 's',' ','L', 'E', 'G', 'E', 'N', 'D',' ', 'w', 'a', 'i', 't', ' ', 'f', 'o', 'r', ' ', 'i', 't', '.', '.', '.','d', 'a', 'r','y', ' ', ' ', ' ',' ', ' ', ' ',' ', ' ', ' ', ' ',' ', ' ', ' ', ' ', ' '};
+	int i;
 	
 	switch (state) 
 	{ //transitions
-		case display_display1: state = display_display2; break;
-		case display_display2: state = display_display1; break;
+		case display_display1: state = display_display2; position = 0;  break;
+		case display_display2: state = display_display2; break;
 
 		default: state = display_display1; break;
 	}
@@ -196,10 +197,18 @@ int displayNumTick(int state)
 	{//Actions
 		
 		case display_display1: 
-			LCD_DisplayString(1, "CS120B is Legend...");
 			break;
 		case display_display2: 
-			LCD_DisplayString(1, "Wait for it DARY");
+			for (i = 0; i < 16; i++)
+			{	LCD_Cursor(i);
+				LCD_WriteData(s[position + i]);
+			}
+			if (position < 49)
+			{
+				position += 1;
+			}
+			else { position = 0;}
+			
 			break;
 	}
 	
@@ -216,11 +225,11 @@ int main(){
 	static task task4;
 	task *tasks[] = {&task4};
 	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
-	unsigned long GCD = 400;
+	unsigned long GCD = 300;
 
 	// Task 4 (displaySM)
 	task4.state = display_display1; //Task initial state.
-	task4.period = 800; //Task Period
+	task4.period = 600; //Task Period
 	task4. elapsedTime = task4.period; //Task current elapsed time.
 	task4.TickFct = &displayNumTick; //Function pointer for the tick.
 	
